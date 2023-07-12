@@ -54,7 +54,7 @@ type GatewayService struct {
 	_ROCKETGATE_CONNECT_TIMEOUT int
 	_ROCKETGATE_READ_TIMEOUT    int
 	_ROCKETGATE_SERVLET         string
-	_ROCKETGATE_HTTP_CLIENT		*http.Client
+	_ROCKETGATE_HTTP_CLIENT     *http.Client
 }
 
 func NewGatewayService() *GatewayService {
@@ -264,6 +264,7 @@ func (r *GatewayService) getServiceUrl(host string, req *request.GatewayRequest)
 	urlProtocol := req.Get(request.GATEWAY_PROTOCOL)
 	urlServlet := req.Get(request.GATEWAY_SERVLET)
 	urlPortNo := req.GetInt(request.GATEWAY_PORTNO)
+	urlQuery := ""
 
 	if urlProtocol == "" {
 		urlProtocol = r._ROCKETGATE_PROTOCOL
@@ -275,10 +276,16 @@ func (r *GatewayService) getServiceUrl(host string, req *request.GatewayRequest)
 		urlServlet = r._ROCKETGATE_SERVLET
 	}
 
+	servletSplit := strings.SplitN(urlServlet, "?", 1)
+	if len(servletSplit) == 2 {
+		urlServlet = servletSplit[0]
+		urlQuery = servletSplit[1]
+	}
 	serviceUrl := url.URL{
-		Scheme: urlProtocol,
-		Host:   host + ":" + fmt.Sprint(urlPortNo),
-		Path:   urlServlet,
+		Scheme:   urlProtocol,
+		Host:     host + ":" + fmt.Sprint(urlPortNo),
+		Path:     urlServlet,
+		RawQuery: urlQuery,
 	}
 
 	return serviceUrl.String()
