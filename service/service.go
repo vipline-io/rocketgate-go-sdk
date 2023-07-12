@@ -307,7 +307,7 @@ func (r *GatewayService) getServerNameAndCleanFailedParams(req *request.GatewayR
 			}
 			req.Set(request.GATEWAY_SERVER, parsedUrl.Hostname())
 			req.Set(request.GATEWAY_PROTOCOL, parsedUrl.Scheme)
-			req.Set(request.GATEWAY_SERVLET, parsedUrl.Path)
+			req.Set(request.GATEWAY_SERVLET, parsedUrl.Path+"?"+parsedUrl.Query().Encode())
 			req.Set(request.GATEWAY_PORTNO, parsedUrl.Port())
 		}
 	}
