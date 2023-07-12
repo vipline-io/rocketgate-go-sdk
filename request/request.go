@@ -15,7 +15,7 @@ const (
 	// Request parameter name for go sdk version
 	version GatewayRequestParamType = "version"
 	// GO SDK version
-	version_no string = "GO5.10"
+	version_no string = "P6.22m"
 )
 
 // GatewayRequestParamType is the list of allowed values for GatewayRequest parameters name
