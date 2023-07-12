@@ -276,7 +276,7 @@ func (r *GatewayService) getServiceUrl(host string, req *request.GatewayRequest)
 		urlServlet = r._ROCKETGATE_SERVLET
 	}
 
-	servletSplit := strings.SplitN(urlServlet, "?", 1)
+	servletSplit := strings.SplitN(urlServlet, "?", 2)
 	if len(servletSplit) == 2 {
 		urlServlet = servletSplit[0]
 		urlQuery = servletSplit[1]
